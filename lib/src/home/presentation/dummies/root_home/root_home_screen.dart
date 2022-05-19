@@ -38,7 +38,7 @@ class RootScreen extends ConsumerWidget {
           createPost: () => const CreatePostsSmartView(),
         ),
       ),
-      drawer: rootState.rootTab.maybeWhen(
+      endDrawer: rootState.rootTab.maybeWhen(
         feed: () => const FeedDrawerMenu(),
         orElse: () => null,
       ),

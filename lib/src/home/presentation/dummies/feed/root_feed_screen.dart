@@ -25,7 +25,7 @@ class RootFeedScreen extends ConsumerWidget {
         ),
       ),
       secondaryIcon: const Icon(Icons.menu),
-      onSecondaryPressed: () => Scaffold.of(context).openDrawer(),
+      onSecondaryPressed: () => Scaffold.of(context).openEndDrawer(),
     );
     return Scaffold(
       appBar: appBar.widget,

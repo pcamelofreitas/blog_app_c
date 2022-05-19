@@ -108,9 +108,22 @@ class PostItem extends StatelessWidget {
             ),
           ),
         ),
-        ElevatedButton(
-          onPressed: () {},
-          child: Text('Read Post'),
+        Row(
+          children: [
+            ElevatedButton(
+              onPressed: () {},
+              child: Text('Read Post'),
+            ),
+            const Spacer(),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.favorite),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.share),
+            ),
+          ],
         ),
       ],
     );

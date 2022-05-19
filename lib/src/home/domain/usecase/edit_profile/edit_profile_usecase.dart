@@ -25,11 +25,11 @@ class EditProfileUsecase extends StateNotifier<EditProfileState> {
         name: state.editProfileForm.name.copyWith(
           field: Just(userData.value?.name ?? ''),
         ),
-        // bio: state.editProfileForm.bio.copyWith(
-        //   field: Just(
-        //     userData.value?.bio.getOrElse(''),
-        //   ),
-        // ),
+        bio: state.editProfileForm.bio.copyWith(
+          field: Just(
+            userData.value?.bio.getOrElse(''),
+          ),
+        ),
         email: state.editProfileForm.email.copyWith(
           field: Just(userData.value?.email ?? ''),
         ),

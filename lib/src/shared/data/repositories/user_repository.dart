@@ -132,9 +132,10 @@ class UserRepository {
     required EditProfileForm form,
   }) async {
     try {
-      await _firebaseFirestore.collection("Users").doc(user.uid).update(
-            form.toJson(),
-          );
+      await _firebaseFirestore
+          .collection("Users")
+          .doc(user.uid)
+          .update(form.toJson());
 
       return const Success(true);
     } catch (e) {
@@ -150,22 +151,6 @@ class UserRepository {
       await _firebaseStorage.ref("/profile_pictures/$userId").putFile(picture);
 
       return const Success(true);
-    } catch (e) {
-      return Failure(AppUnknownError(slug: e.toString()));
-    }
-  }
-
-  Future<Result<UserEntity>> _getUserInformation(User user) async {
-    try {
-      final UserEntity userEntity = UserEntity(
-        id: user.uid,
-        email: user.email,
-        emailVerified: user.emailVerified,
-        name: user.displayName,
-        // profi: user.photoURL,
-      );
-
-      return Success(userEntity);
     } catch (e) {
       return Failure(AppUnknownError(slug: e.toString()));
     }
@@ -220,12 +205,12 @@ class UserRepository {
 
   Future<Result<File>> _getUserProfilePicture(User user) async {
     try {
-      final String? imagePath = _firebaseAuth.currentUser!.photoURL;
+      FullMetadata infos = await _firebaseStorage
+          .ref("/profile_pictures/${user.uid}")
+          .getMetadata();
 
-      FullMetadata infos =
-          await _firebaseStorage.refFromURL(imagePath!).getMetadata();
-
-      Uint8List? data = await _firebaseStorage.refFromURL(imagePath).getData();
+      Uint8List? data =
+          await _firebaseStorage.ref("/profile_pictures/${user.uid}").getData();
 
       if (data != null) {
         Directory tempDir = await getTemporaryDirectory();

@@ -1,7 +1,9 @@
 import 'package:blog_app/src/auth/auth_providers.dart';
 import 'package:blog_app/src/auth/domain/usecase/signin/sign_in_usecase.dart';
+import 'package:blog_app/src/shared/design_system/tokens/color_tokens.dart';
 import 'package:blog_app/src/shared/design_system/tokens/spacing_tokens.dart';
 import 'package:blog_app/src/shared/presentation/form/validators.dart';
+import 'package:blog_app/src/shared/presentation/typography/capyba_social_text_style.dart';
 import 'package:blog_app/src/shared/presentation/widgets/appbars/capyba_social_appbar.dart';
 import 'package:blog_app/src/shared/presentation/widgets/flexible_scroll_container.dart';
 import 'package:blog_app/src/shared/presentation/widgets/text_field/capyba_social_text_field.dart';
@@ -44,7 +46,7 @@ class _SignInEmailScreenState extends ConsumerState<SignInEmailScreen> {
     return Theme(
       data: appBar.buildTheme(Theme.of(context)),
       child: Scaffold(
-        backgroundColor: Colors.green,
+        backgroundColor: ColorTokens.primary,
         appBar: appBar.widget,
         body: FlexibleScrollContainer(
           child: Padding(
@@ -53,6 +55,30 @@ class _SignInEmailScreenState extends ConsumerState<SignInEmailScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const SizedBox(
+                  height: SpacingTokens.mega,
+                ),
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: "Enter your ",
+                        style: CapybaSocialTextStyle.headline6.style
+                            .copyWith(color: ColorTokens.neutralLight),
+                      ),
+                      TextSpan(
+                        text: "Email:",
+                        style: CapybaSocialTextStyle.headline6.weightBold.style
+                            .copyWith(
+                          color: ColorTokens.neutralDarkest,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: SpacingTokens.mega,
+                ),
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
