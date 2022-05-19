@@ -1,4 +1,5 @@
 import 'package:blog_app/src/auth/presentation/smarties/onboarding_smart_view.dart';
+import 'package:blog_app/src/shared/presentation/widgets/capyba_social_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -25,6 +26,7 @@ class _BlogAppState extends State<BlogApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      scaffoldMessengerKey: CapybaSocialNotifications.scaffoldMessengerStateKey,
       theme: ThemeData(
         primaryColor: Colors.black,
         appBarTheme: const AppBarTheme(

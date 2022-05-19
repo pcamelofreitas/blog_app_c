@@ -5,7 +5,6 @@ import 'package:blog_app/src/home/presentation/dummies/feed/feed_drawer.dart';
 import '/src/home/presentation/smarties/create_posts_smart_view.dart';
 import '/src/home/presentation/smarties/feed_smart_view.dart';
 import '/src/home/presentation/smarties/profile_smart_view.dart';
-import '/src/shared/design_system/assets/capyba_social_icons.dart';
 import '/src/shared/design_system/tokens/color_tokens.dart';
 import '/src/shared/design_system/tokens/spacing_tokens.dart';
 import '/src/shared/presentation/widgets/capyba_social_circular_progress_indicator.dart';
@@ -99,7 +98,7 @@ class RootScreen extends ConsumerWidget {
                   child: UserAvatar(
                     radius: SpacingTokens.mega,
                     localUserAvatarImage: rootState.userRequestStatus.maybeWhen(
-                      succeeded: (data) => data.profilePicture.value!.path,
+                      succeeded: (data) => data.profilePicture.value?.path,
                       orElse: () => '',
                     ),
                   ),
@@ -110,7 +109,7 @@ class RootScreen extends ConsumerWidget {
                     radius: SpacingTokens.mega,
                     borderColor: ColorTokens.primary,
                     localUserAvatarImage: rootState.userRequestStatus.maybeWhen(
-                      succeeded: (data) => data.profilePicture.value!.path,
+                      succeeded: (data) => data.profilePicture.value?.path,
                       orElse: () => '',
                     ),
                   ),

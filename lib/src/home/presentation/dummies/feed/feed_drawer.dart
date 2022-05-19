@@ -40,7 +40,7 @@ class FeedDrawerMenu extends ConsumerWidget {
               radius: 35,
               localUserAvatarImage: feedState.userData.map(
                 nothing: (_) => '',
-                just: (data) => data.value.profilePicture.value!.path,
+                just: (data) => data.value.profilePicture.value?.path,
               ),
             ),
           ),

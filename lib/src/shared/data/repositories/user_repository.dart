@@ -55,18 +55,11 @@ class UserRepository {
       Result<User> loggedUserRes = await _getLoggedUser();
 
       return loggedUserRes.handle(
-        onSuccess: (user) async {
+        onSuccess: (data) async {
           final Result<File> userProfilePicture =
-              await _getUserProfilePicture(user);
-          final Result<UserEntity> userEntityRes = await _getUserDocument(user);
-
-          // UserEntity entity = UserEntity(
-          //   uid: user.uid,
-          //   email: user.email,
-          //   name: user.displayName,
-          //   photoURL: user.photoURL,
-          //   emailVerified: user.emailVerified,
-          // );
+              await _getUserProfilePicture(data);
+          final Result<UserEntity> userEntityRes =
+              await _getUserInformation(data);
 
           return userEntityRes.handle(
             onSuccess: (entity) => Success(
@@ -165,62 +158,15 @@ class UserRepository {
     }
   }
 
-  // Future<Result<UserEntity>> _getUserInformation(User user) async {
-  //   try {
-  //     final UserEntity userEntity = UserEntity(
-  //       uid: user.uid,
-  //       email: user.email,
-  //       emailVerified: user.emailVerified,
-  //       name: user.displayName,
-  //       // profi: user.photoURL,
-  //     );
-
-  //     return Success(userEntity);
-  //   } catch (e) {
-  //     return Failure(AppUnknownError(slug: e.toString()));
-  //   }
-  // }
-
-  Future<Result<UserEntity>> _getUserDocument(User user) async {
+  Future<Result<UserEntity>> _getUserInformation(User user) async {
     try {
-      String providerId = user.providerData.first.providerId;
-
-      late UserEntity userEntity;
-
-      if (providerId.contains("google")) {
-        userEntity = UserEntity(
-          uid: user.uid,
-          email: user.email,
-          emailVerified: user.emailVerified,
-          name: user.displayName,
-          // providerId: providerId,
-        );
-
-        final DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
-            await _firebaseFirestore.collection("Users").doc(user.uid).get();
-
-        if (!documentSnapshot.exists) {
-          await _firebaseFirestore
-              .collection("Users")
-              .doc(userEntity.uid)
-              .set(userEntity.toJson());
-        } else {
-          userEntity = UserEntity.fromJson(documentSnapshot.data()!);
-        }
-      } else {
-        final DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
-            await _firebaseFirestore.collection("Users").doc(user.uid).get();
-
-        userEntity = UserEntity.fromJson(documentSnapshot.data()!);
-        if (userEntity.emailVerified != user.emailVerified) {
-          await _firebaseFirestore.collection("Users").doc(user.uid).update(
-            {
-              "emailVerified": user.emailVerified,
-            },
-          );
-        }
-        // userEntity = userEntity.copyWith(providerId: providerId);
-      }
+      final UserEntity userEntity = UserEntity(
+        uid: user.uid,
+        email: user.email,
+        emailVerified: user.emailVerified,
+        name: user.displayName,
+        // profi: user.photoURL,
+      );
 
       return Success(userEntity);
     } catch (e) {
@@ -228,14 +174,61 @@ class UserRepository {
     }
   }
 
+  // Future<Result<UserEntity>> _getUserDocument(User user) async {
+  //   try {
+  //     String providerId = user.providerData.first.providerId;
+
+  //     late UserEntity userEntity;
+
+  //     if (providerId.contains("google")) {
+  //       userEntity = UserEntity(
+  //         uid: user.uid,
+  //         email: user.email,
+  //         emailVerified: user.emailVerified,
+  //         name: user.displayName,
+  //         providerId: providerId,
+  //       );
+
+  //       final DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
+  //           await _firebaseFirestore.collection("Users").doc(user.uid).get();
+
+  //       if (!documentSnapshot.exists) {
+  //         await _firebaseFirestore
+  //             .collection("Users")
+  //             .doc(userEntity.uid)
+  //             .set(userEntity.toJson());
+  //       } else {
+  //         userEntity = UserEntity.fromJson(documentSnapshot.data()!);
+  //       }
+  //     } else {
+  //       final DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
+  //           await _firebaseFirestore.collection("Users").doc(user.uid).get();
+
+  //       userEntity = UserEntity.fromJson(documentSnapshot.data()!);
+  //       if (userEntity.emailVerified != user.emailVerified) {
+  //         await _firebaseFirestore.collection("Users").doc(user.uid).update(
+  //           {
+  //             "emailVerified": user.emailVerified,
+  //           },
+  //         );
+  //       }
+  //       userEntity = userEntity.copyWith(providerId: providerId);
+  //     }
+
+  //     return Success(userEntity);
+  //   } catch (e) {
+  //     return Failure(AppUnknownError(slug: e.toString()));
+  //   }
+  // }
+
   Future<Result<File>> _getUserProfilePicture(User user) async {
     try {
-      FullMetadata infos = await _firebaseStorage
-          .ref("/profile_pictures/${user.uid}")
-          .getMetadata();
+      final String? imagePath = _firebaseAuth.currentUser!.photoURL;
 
-      Uint8List? data =
-          await _firebaseStorage.ref("/profile_pictures/${user.uid}").getData();
+      FullMetadata infos =
+          await _firebaseStorage.refFromURL(imagePath!).getMetadata();
+
+      Uint8List? data = await _firebaseStorage.refFromURL(imagePath).getData();
 
       if (data != null) {
         Directory tempDir = await getTemporaryDirectory();
