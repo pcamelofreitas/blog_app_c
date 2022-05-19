@@ -165,21 +165,21 @@ class UserRepository {
     }
   }
 
-  Future<Result<UserEntity>> _getUserInformation(User user) async {
-    try {
-      final UserEntity userEntity = UserEntity(
-        uid: user.uid,
-        email: user.email,
-        emailVerified: user.emailVerified,
-        name: user.displayName,
-        photoURL: user.photoURL,
-      );
+  // Future<Result<UserEntity>> _getUserInformation(User user) async {
+  //   try {
+  //     final UserEntity userEntity = UserEntity(
+  //       uid: user.uid,
+  //       email: user.email,
+  //       emailVerified: user.emailVerified,
+  //       name: user.displayName,
+  //       // profi: user.photoURL,
+  //     );
 
-      return Success(userEntity);
-    } catch (e) {
-      return Failure(AppUnknownError(slug: e.toString()));
-    }
-  }
+  //     return Success(userEntity);
+  //   } catch (e) {
+  //     return Failure(AppUnknownError(slug: e.toString()));
+  //   }
+  // }
 
   Future<Result<UserEntity>> _getUserDocument(User user) async {
     try {

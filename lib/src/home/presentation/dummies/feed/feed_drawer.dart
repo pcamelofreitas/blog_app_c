@@ -38,9 +38,9 @@ class FeedDrawerMenu extends ConsumerWidget {
             currentAccountPicture: UserAvatar(
               borderColor: Colors.black,
               radius: 35,
-              urlUserAvatarImage: feedState.userData.map(
+              localUserAvatarImage: feedState.userData.map(
                 nothing: (_) => '',
-                just: (data) => data.value.photoURL,
+                just: (data) => data.value.profilePicture.value!.path,
               ),
             ),
           ),

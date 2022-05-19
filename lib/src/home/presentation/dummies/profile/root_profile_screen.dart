@@ -48,9 +48,9 @@ class RootProfileScreen extends ConsumerWidget {
                   child: Column(
                     children: [
                       UserAvatar(
-                        urlUserAvatarImage: profileState.userData.map(
+                        localUserAvatarImage: profileState.userData.map(
                           nothing: (_) => '',
-                          just: (data) => data.value.photoURL,
+                          just: (data) => data.value.profilePicture.value!.path,
                         ),
                       ),
                       const SizedBox(

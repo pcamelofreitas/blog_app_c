@@ -1,5 +1,6 @@
 import 'package:blog_app/src/auth/domain/models/user_model.dart';
 import 'package:blog_app/src/shared/errors/exceptions.dart';
+import 'package:blog_app/src/shared/types/maybe.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user_entitiy.freezed.dart';

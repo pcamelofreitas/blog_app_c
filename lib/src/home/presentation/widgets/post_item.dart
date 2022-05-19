@@ -30,9 +30,9 @@ class PostItem extends StatelessWidget {
               children: [
                 UserAvatar(
                   radius: 30.0,
-                  urlUserAvatarImage: post.user.when(
+                  localUserAvatarImage: post.user.when(
                     nothing: () => "",
-                    just: (user) => user.photoURL,
+                    just: (user) => user.profilePicture.value!.path,
                   ),
                 ),
                 const SizedBox(

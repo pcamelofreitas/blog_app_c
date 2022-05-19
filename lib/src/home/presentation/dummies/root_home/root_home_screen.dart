@@ -98,8 +98,8 @@ class RootScreen extends ConsumerWidget {
                   padding: const EdgeInsets.only(top: SpacingTokens.hecto),
                   child: UserAvatar(
                     radius: SpacingTokens.mega,
-                    urlUserAvatarImage: rootState.userRequestStatus.maybeWhen(
-                      succeeded: (data) => data.photoURL,
+                    localUserAvatarImage: rootState.userRequestStatus.maybeWhen(
+                      succeeded: (data) => data.profilePicture.value!.path,
                       orElse: () => '',
                     ),
                   ),
@@ -109,8 +109,8 @@ class RootScreen extends ConsumerWidget {
                   child: UserAvatar(
                     radius: SpacingTokens.mega,
                     borderColor: ColorTokens.primary,
-                    urlUserAvatarImage: rootState.userRequestStatus.maybeWhen(
-                      succeeded: (data) => data.photoURL,
+                    localUserAvatarImage: rootState.userRequestStatus.maybeWhen(
+                      succeeded: (data) => data.profilePicture.value!.path,
                       orElse: () => '',
                     ),
                   ),
