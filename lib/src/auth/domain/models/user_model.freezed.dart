@@ -19,7 +19,7 @@ mixin _$UserModel {
   String get uid => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
-  String get photoURL => throw _privateConstructorUsedError;
+  Maybe<File> get profilePicture => throw _privateConstructorUsedError;
   bool get emailVerified => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -35,8 +35,10 @@ abstract class $UserModelCopyWith<$Res> {
       {String uid,
       String name,
       String email,
-      String photoURL,
+      Maybe<File> profilePicture,
       bool emailVerified});
+
+  $MaybeCopyWith<File, $Res> get profilePicture;
 }
 
 /// @nodoc
@@ -52,7 +54,7 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
     Object? uid = freezed,
     Object? name = freezed,
     Object? email = freezed,
-    Object? photoURL = freezed,
+    Object? profilePicture = freezed,
     Object? emailVerified = freezed,
   }) {
     return _then(_value.copyWith(
@@ -68,15 +70,22 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      photoURL: photoURL == freezed
-          ? _value.photoURL
-          : photoURL // ignore: cast_nullable_to_non_nullable
-              as String,
+      profilePicture: profilePicture == freezed
+          ? _value.profilePicture
+          : profilePicture // ignore: cast_nullable_to_non_nullable
+              as Maybe<File>,
       emailVerified: emailVerified == freezed
           ? _value.emailVerified
           : emailVerified // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
+  }
+
+  @override
+  $MaybeCopyWith<File, $Res> get profilePicture {
+    return $MaybeCopyWith<File, $Res>(_value.profilePicture, (value) {
+      return _then(_value.copyWith(profilePicture: value));
+    });
   }
 }
 
@@ -90,8 +99,11 @@ abstract class _$$_UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
       {String uid,
       String name,
       String email,
-      String photoURL,
+      Maybe<File> profilePicture,
       bool emailVerified});
+
+  @override
+  $MaybeCopyWith<File, $Res> get profilePicture;
 }
 
 /// @nodoc
@@ -109,7 +121,7 @@ class __$$_UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
     Object? uid = freezed,
     Object? name = freezed,
     Object? email = freezed,
-    Object? photoURL = freezed,
+    Object? profilePicture = freezed,
     Object? emailVerified = freezed,
   }) {
     return _then(_$_UserModel(
@@ -125,10 +137,10 @@ class __$$_UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      photoURL: photoURL == freezed
-          ? _value.photoURL
-          : photoURL // ignore: cast_nullable_to_non_nullable
-              as String,
+      profilePicture: profilePicture == freezed
+          ? _value.profilePicture
+          : profilePicture // ignore: cast_nullable_to_non_nullable
+              as Maybe<File>,
       emailVerified: emailVerified == freezed
           ? _value.emailVerified
           : emailVerified // ignore: cast_nullable_to_non_nullable
@@ -144,7 +156,7 @@ class _$_UserModel implements _UserModel {
       {required this.uid,
       required this.name,
       required this.email,
-      required this.photoURL,
+      required this.profilePicture,
       required this.emailVerified});
 
   @override
@@ -154,13 +166,13 @@ class _$_UserModel implements _UserModel {
   @override
   final String email;
   @override
-  final String photoURL;
+  final Maybe<File> profilePicture;
   @override
   final bool emailVerified;
 
   @override
   String toString() {
-    return 'UserModel(uid: $uid, name: $name, email: $email, photoURL: $photoURL, emailVerified: $emailVerified)';
+    return 'UserModel(uid: $uid, name: $name, email: $email, profilePicture: $profilePicture, emailVerified: $emailVerified)';
   }
 
   @override
@@ -171,7 +183,8 @@ class _$_UserModel implements _UserModel {
             const DeepCollectionEquality().equals(other.uid, uid) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.email, email) &&
-            const DeepCollectionEquality().equals(other.photoURL, photoURL) &&
+            const DeepCollectionEquality()
+                .equals(other.profilePicture, profilePicture) &&
             const DeepCollectionEquality()
                 .equals(other.emailVerified, emailVerified));
   }
@@ -182,7 +195,7 @@ class _$_UserModel implements _UserModel {
       const DeepCollectionEquality().hash(uid),
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(email),
-      const DeepCollectionEquality().hash(photoURL),
+      const DeepCollectionEquality().hash(profilePicture),
       const DeepCollectionEquality().hash(emailVerified));
 
   @JsonKey(ignore: true)
@@ -196,7 +209,7 @@ abstract class _UserModel implements UserModel {
       {required final String uid,
       required final String name,
       required final String email,
-      required final String photoURL,
+      required final Maybe<File> profilePicture,
       required final bool emailVerified}) = _$_UserModel;
 
   @override
@@ -206,7 +219,7 @@ abstract class _UserModel implements UserModel {
   @override
   String get email => throw _privateConstructorUsedError;
   @override
-  String get photoURL => throw _privateConstructorUsedError;
+  Maybe<File> get profilePicture => throw _privateConstructorUsedError;
   @override
   bool get emailVerified => throw _privateConstructorUsedError;
   @override

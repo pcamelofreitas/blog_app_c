@@ -1,7 +1,9 @@
 import 'package:blog_app/src/auth/auth_providers.dart';
 import 'package:blog_app/src/auth/domain/usecase/signup/sign_up_usecase.dart';
+import 'package:blog_app/src/shared/design_system/tokens/color_tokens.dart';
 import 'package:blog_app/src/shared/design_system/tokens/spacing_tokens.dart';
 import 'package:blog_app/src/shared/presentation/form/validators.dart';
+import 'package:blog_app/src/shared/presentation/typography/capyba_social_text_style.dart';
 import 'package:blog_app/src/shared/presentation/widgets/appbars/capyba_social_appbar.dart';
 import 'package:blog_app/src/shared/presentation/widgets/flexible_scroll_container.dart';
 import 'package:blog_app/src/shared/presentation/widgets/text_field/capyba_social_text_field.dart';
@@ -45,10 +47,29 @@ class _SignUpEmailScreen extends ConsumerState<SignUpEmailScreen> {
         child: Padding(
           padding: const EdgeInsets.all(8),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(
                 height: SpacingTokens.mega,
+              ),
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "Enter your ",
+                      style: CapybaSocialTextStyle.headline7.style
+                          .copyWith(color: ColorTokens.neutralDark),
+                    ),
+                    TextSpan(
+                      text: "Email:",
+                      style: CapybaSocialTextStyle.headline6.weightBold.style
+                          .copyWith(
+                        color: ColorTokens.neutralDarkest,
+                      ),
+                    )
+                  ],
+                ),
               ),
               Container(
                 decoration: BoxDecoration(

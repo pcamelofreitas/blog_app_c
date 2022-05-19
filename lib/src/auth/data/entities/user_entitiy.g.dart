@@ -12,7 +12,6 @@ _$_UserEntity _$$_UserEntityFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String?,
       email: json['email'] as String?,
       emailVerified: json['emailVerified'] as bool?,
-      photoURL: json['photoURL'] as String?,
     );
 
 Map<String, dynamic> _$$_UserEntityToJson(_$_UserEntity instance) =>
@@ -21,5 +20,4 @@ Map<String, dynamic> _$$_UserEntityToJson(_$_UserEntity instance) =>
       'name': instance.name,
       'email': instance.email,
       'emailVerified': instance.emailVerified,
-      'photoURL': instance.photoURL,
     };

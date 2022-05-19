@@ -58,7 +58,8 @@ class _SignUpConfirmationPasswordScreen
             horizontal: SpacingTokens.giga,
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(
                 height: SpacingTokens.mega,

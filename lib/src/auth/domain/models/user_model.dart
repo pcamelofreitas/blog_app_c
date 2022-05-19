@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:blog_app/src/shared/types/maybe.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'user_model.freezed.dart';
 
@@ -7,7 +10,7 @@ class UserModel with _$UserModel {
     required String uid,
     required String name,
     required String email,
-    required String photoURL,
+    required Maybe<File> profilePicture,
     required bool emailVerified,
   }) = _UserModel;
 }

@@ -12,7 +12,7 @@ class UserEntity with _$UserEntity {
     String? uid,
     String? name,
     String? email,
-    String? photoURL,
+    // String? photoURL,
     bool? emailVerified,
   }) = _UserEntity;
 
@@ -25,7 +25,7 @@ class UserEntity with _$UserEntity {
         uid: uid!,
         name: name != null ? name! : '',
         email: email!,
-        photoURL: photoURL != null ? photoURL! : '',
+        profilePicture: const Nothing(),
         emailVerified: emailVerified!,
       );
     } catch (e) {
