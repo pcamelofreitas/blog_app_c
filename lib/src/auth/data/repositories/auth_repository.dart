@@ -1,29 +1,35 @@
 import 'dart:io';
 
 import 'package:blog_app/src/auth/data/entities/auth_response_entity.dart';
+import 'package:blog_app/src/auth/data/entities/user_entitiy.dart';
 import 'package:blog_app/src/auth/domain/models/auth_response_model.dart';
 import 'package:blog_app/src/auth/domain/usecase/signin/sign_in_form.dart';
 import 'package:blog_app/src/auth/domain/usecase/signup/sign_up_form.dart';
 import 'package:blog_app/src/shared/errors/app_error.dart';
 import 'package:blog_app/src/shared/errors/exceptions.dart';
 import 'package:blog_app/src/shared/types/result.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthRepository {
-  AuthRepository({
-    required FirebaseAuth firebaseAuth,
-    required FirebaseStorage firebaseStorage,
-    required GoogleSignIn googleSignIn,
-  })  : _firebaseAuth = firebaseAuth,
+  AuthRepository(
+      {required FirebaseAuth firebaseAuth,
+      required FirebaseStorage firebaseStorage,
+      required GoogleSignIn googleSignIn,
+      required FirebaseFirestore firebaseFirestore})
+      : _firebaseAuth = firebaseAuth,
         _firebaseStorage = firebaseStorage,
         _googleSignIn = googleSignIn,
+        _firebaseFirestore = firebaseFirestore,
         super();
   final FirebaseAuth _firebaseAuth;
   final FirebaseStorage _firebaseStorage;
   final GoogleSignIn _googleSignIn;
+  final FirebaseFirestore _firebaseFirestore;
 
+//DEAL WITH USER-------------------------------------------------
   Future<Result> evaluateAuthState() async {
     User? loggedUser = _firebaseAuth.currentUser;
 
@@ -34,23 +40,7 @@ class AuthRepository {
     }
   }
 
-  Future<Result<String>> verifyEmail() async {
-    try {
-      User? loggedUser = _firebaseAuth.currentUser;
-
-      if (loggedUser != null) {
-        await loggedUser.sendEmailVerification();
-
-        return const Success(
-            'A verification email has been sent to your registration email');
-      } else {
-        return Failure(AppUnknownError());
-      }
-    } catch (e) {
-      return Failure(AppUnknownError());
-    }
-  }
-
+//SIGN_IN----------------------------------------------------
   Future<Result<AuthResponseModel>> signInWithEmailAndPassword(
       {required SignInForm form}) async {
     try {
@@ -72,101 +62,127 @@ class AuthRepository {
     }
   }
 
-  Future<Result<AuthResponseModel>> singInWithGoogle() async {
-    final GoogleSignInAccount? googleSignInAccount =
-        await _googleSignIn.signIn();
-
-    if (googleSignInAccount != null) {
-      final GoogleSignInAuthentication googleSignInAuthentication =
-          await googleSignInAccount.authentication;
-
-      final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleSignInAuthentication.accessToken,
-        idToken: googleSignInAuthentication.idToken,
-      );
-
-      try {
-        final UserCredential userCredential =
-            await _firebaseAuth.signInWithCredential(credential);
-
-        AuthResponseEntity authResponseEntity = AuthResponseEntity(
-          uid: userCredential.user?.uid,
-          emailVerified: userCredential.user?.emailVerified,
-        );
-        return Success(authResponseEntity.toDomain());
-      } catch (e) {
-        return Failure(AppUnknownError(
-            slug: 'Error occurred using Google Sign In. Try again.'));
-      }
-    } else {
-      return Failure(AppUnknownError(slug: 'error'));
-    }
-  }
-
-  Future<Result<AuthResponseModel>> signUpWithEmailAndPassword(
-      {required SignUpForm form}) async {
+  Future<Result> sendEmailToResetPassword(String email) async {
     try {
-      UserCredential credential =
-          await _firebaseAuth.createUserWithEmailAndPassword(
-        email: form.email.field.getOrElse(''),
-        password: form.password.field.getOrElse(''),
-      );
-
-      Result<String> uploadPhotoRes = await uploadProfilePhoto(
-        photo: File(
-          form.selfie.field.getOrElse(''),
-        ),
-      );
-
-      Result updateProfileRes = await uploadPhotoRes.handle(
-        onSuccess: (url) async {
-          try {
-            // await _updateUserData(
-            //   credential: credential,
-            //   url: url,
-            //   displayName: form.name.field.getOrElse(''),
-            // );
-            await credential.user!.updateDisplayName(form.name.field.value);
-
-            await credential.user!.updatePhotoURL(url);
-
-            return const Success(true);
-          } catch (e) {
-            return Failure(AppUnknownError(slug: e.toString()));
-          }
-        },
-        onFailure: (error) {
-          return Failure(AppUnknownError(slug: error.toString()));
-        },
-      );
-
-      if (updateProfileRes is Success && uploadPhotoRes is Success) {
-        AuthResponseEntity authResponseEntity = AuthResponseEntity(
-          uid: credential.user!.uid,
-          emailVerified: credential.user!.emailVerified,
-        );
-
-        return Success(authResponseEntity.toDomain());
-      } else {
-        return Failure(AppUnknownError());
-      }
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+      return const Success(true);
     } catch (e) {
       return Failure(AppUnknownError(slug: e.toString()));
     }
   }
 
-  Future<Result> _updateUserData({
-    required UserCredential credential,
-    required String url,
-    required String displayName,
+  Future<Result<AuthResponseModel>> singInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      final UserCredential userCredential =
+          await _firebaseAuth.signInWithCredential(credential);
+
+      AuthResponseEntity authResponseEntity = AuthResponseEntity(
+        uid: userCredential.user?.uid,
+        emailVerified: userCredential.user?.emailVerified,
+      );
+      return Success(authResponseEntity.toDomain());
+    } on ParseException catch (e) {
+      return Failure(EntityNotFitError(slug: e.toString()));
+    } catch (e) {
+      return Failure(AppUnknownError(slug: e.toString()));
+    }
+  }
+
+//----------------SIGN-UP------------------------------------------------
+  Future<Result<AuthResponseModel>> signUpWithEmailAndPassword(
+      {required SignUpForm form}) async {
+    try {
+      final UserCredential userCredential =
+          await _firebaseAuth.createUserWithEmailAndPassword(
+        email: form.email.field.getOrElse(""),
+        password: form.password.field.getOrElse(""),
+      );
+
+      AuthResponseEntity authResponseEntity = AuthResponseEntity(
+        uid: userCredential.user?.uid,
+        emailVerified: userCredential.user?.emailVerified,
+      );
+
+      AuthResponseModel authResponseModel = authResponseEntity.toDomain();
+
+      Result uploadProfilePicRes = await _uploadProfilePicture(
+        fileName: authResponseModel.uid,
+        picture: File(form.selfie.field.getOrElse("")),
+      );
+
+      Result createUserDocRes = await _createUserDocument(
+        docName: authResponseModel.uid,
+        data: UserEntity(
+          id: authResponseModel.uid,
+          email: form.email.field.getOrElse(""),
+          emailVerified: false,
+          name: form.name.field.getOrElse(""),
+        ).toJson(),
+      );
+
+      if (createUserDocRes is Success && uploadProfilePicRes is Success) {
+        return Success(authResponseModel);
+      } else {
+        return Failure(AppUnknownError(slug: "failed at least one step"));
+      }
+    } on ParseException catch (e) {
+      return Failure(EntityNotFitError(slug: e.toString()));
+    } catch (e) {
+      return Failure(AppUnknownError(slug: e.toString()));
+    }
+  }
+
+  Future<Result> _uploadProfilePicture({
+    required String fileName,
+    required File picture,
   }) async {
     try {
-      await credential.user!.updatePhotoURL(url);
-      await credential.user!.updateDisplayName(displayName);
+      await _firebaseStorage
+          .ref("/profile_pictures/$fileName")
+          .putFile(picture);
 
       return const Success(true);
     } catch (e) {
       return Failure(AppUnknownError(slug: e.toString()));
+    }
+  }
+
+  Future<Result> _createUserDocument(
+      {required String docName, required Map<String, dynamic> data}) async {
+    try {
+      await _firebaseFirestore.collection("Users").doc(docName).set(data);
+
+      return const Success(true);
+    } catch (e) {
+      return Failure(AppUnknownError(slug: e.toString()));
+    }
+  }
+
+//EXTERN CALLS------------------------------------------------------------------
+  Future<Result<String>> verifyEmail() async {
+    try {
+      User? loggedUser = _firebaseAuth.currentUser;
+
+      if (loggedUser != null) {
+        await loggedUser.sendEmailVerification();
+
+        return const Success(
+            'A verification email has been sent to your registration email.');
+      } else {
+        return Failure(AppUnknownError());
+      }
+    } catch (e) {
+      return Failure(AppUnknownError());
     }
   }
 
@@ -179,35 +195,41 @@ class AuthRepository {
     }
   }
 
-  Future<Result<String>> uploadProfilePhoto({
-    required File photo,
-  }) async {
-    try {
-      User? user = _firebaseAuth.currentUser;
+  // Future<Result> _updateUserData({
+  //   required UserCredential credential,
+  //   required String url,
+  //   required String displayName,
+  // }) async {
+  //   try {
+  //     await credential.user!.updatePhotoURL(url);
+  //     await credential.user!.updateDisplayName(displayName);
 
-      late String photoURL;
+  //     return const Success(true);
+  //   } catch (e) {
+  //     return Failure(AppUnknownError(slug: e.toString()));
+  //   }
+  // }
 
-      Reference firebaseStorageRef =
-          _firebaseStorage.ref().child('profile_user_photos/$user.uid');
+  // Future<Result<String>> uploadProfilePhoto({
+  //   required File photo,
+  // }) async {
+  //   try {
+  //     User? user = _firebaseAuth.currentUser;
 
-      UploadTask uploadTask = firebaseStorageRef.putFile(photo);
+  //     late String photoURL;
 
-      TaskSnapshot taskSnapshot = await uploadTask;
+  //     Reference firebaseStorageRef =
+  //         _firebaseStorage.ref().child('profile_user_photos/$user.uid');
 
-      taskSnapshot.ref.getDownloadURL().then((value) => photoURL = value);
+  //     UploadTask uploadTask = firebaseStorageRef.putFile(photo);
 
-      return Success(photoURL);
-    } catch (e) {
-      return Failure(AppUnknownError(msg: e.toString()));
-    }
-  }
+  //     TaskSnapshot taskSnapshot = await uploadTask;
 
-  Future<Result> sendEmailToResetPassword(String email) async {
-    try {
-      await _firebaseAuth.sendPasswordResetEmail(email: email);
-      return const Success(true);
-    } catch (e) {
-      return Failure(AppUnknownError(slug: e.toString()));
-    }
-  }
+  //     taskSnapshot.ref.getDownloadURL().then((value) => photoURL = value);
+
+  //     return Success(photoURL);
+  //   } catch (e) {
+  //     return Failure(AppUnknownError(msg: e.toString()));
+  //   }
+  // }
 }

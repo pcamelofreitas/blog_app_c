@@ -1,3 +1,4 @@
+import 'package:blog_app/src/auth/domain/models/provider_id.dart';
 import 'package:blog_app/src/auth/domain/models/user_model.dart';
 import 'package:blog_app/src/shared/errors/exceptions.dart';
 import 'package:blog_app/src/shared/types/maybe.dart';
@@ -10,11 +11,12 @@ part 'user_entitiy.g.dart';
 class UserEntity with _$UserEntity {
   const UserEntity._();
   const factory UserEntity({
-    String? uid,
+    String? id,
     String? name,
+    String? bio,
     String? email,
-    // String? photoURL,
     bool? emailVerified,
+    String? providerId,
   }) = _UserEntity;
 
   factory UserEntity.fromJson(Map<String, dynamic> json) =>
@@ -23,11 +25,15 @@ class UserEntity with _$UserEntity {
   UserModel toDomain() {
     try {
       return UserModel(
-        uid: uid!,
-        name: name != null ? name! : '',
-        email: email!,
+        id: id!,
+        name: name!,
+        bio: bio != null ? Just(bio!) : const Nothing(),
         profilePicture: const Nothing(),
+        email: email!,
         emailVerified: emailVerified!,
+        providerId: providerId?.contains("google") == true
+            ? const Google()
+            : const Password(),
       );
     } catch (e) {
       throw ParseException(e.toString());

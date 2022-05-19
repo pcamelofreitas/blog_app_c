@@ -34,7 +34,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
 
     _image = state.userData.map(
       nothing: (_) => '',
-      just: (data) => data.value.profilePicture.value!.path,
+      just: (data) => data.value.profilePicture.value?.path ?? '',
     );
 
     nameController = CapybaSocialTextFieldController(
@@ -84,7 +84,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     return Theme(
       data: appBar.buildTheme(Theme.of(context)),
       child: Scaffold(
-        backgroundColor: ColorTokens.neutralLightest,
+        backgroundColor: Colors.green,
         appBar: appBar.widget,
         body: FlexibleScrollContainer(
           child: Padding(

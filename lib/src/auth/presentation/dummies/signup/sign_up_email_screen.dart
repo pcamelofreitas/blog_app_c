@@ -47,7 +47,7 @@ class _SignUpEmailScreen extends ConsumerState<SignUpEmailScreen> {
         child: Padding(
           padding: const EdgeInsets.all(8),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(
@@ -58,8 +58,8 @@ class _SignUpEmailScreen extends ConsumerState<SignUpEmailScreen> {
                   children: [
                     TextSpan(
                       text: "Enter your ",
-                      style: CapybaSocialTextStyle.headline7.style
-                          .copyWith(color: ColorTokens.neutralDark),
+                      style: CapybaSocialTextStyle.headline6.style
+                          .copyWith(color: ColorTokens.neutralLight),
                     ),
                     TextSpan(
                       text: "Email:",
@@ -70,6 +70,9 @@ class _SignUpEmailScreen extends ConsumerState<SignUpEmailScreen> {
                     )
                   ],
                 ),
+              ),
+              const SizedBox(
+                height: SpacingTokens.mega,
               ),
               Container(
                 decoration: BoxDecoration(
@@ -87,7 +90,7 @@ class _SignUpEmailScreen extends ConsumerState<SignUpEmailScreen> {
                   child: CapybaSocialTextField(
                     hintText: 'Email',
                     controller: controller,
-                    keyboardType: TextInputType.text,
+                    keyboardType: TextInputType.emailAddress,
                     onChanged: usecase.onEmailChanged,
                     onSubmitted: (value) => _onContinuePressed(),
                   ),
@@ -96,9 +99,14 @@ class _SignUpEmailScreen extends ConsumerState<SignUpEmailScreen> {
               const SizedBox(
                 height: SpacingTokens.mega,
               ),
-              ElevatedButton(
-                onPressed: _onContinuePressed,
-                child: const Text('Continue'),
+              Center(
+                child: ElevatedButton(
+                  onPressed: _onContinuePressed,
+                  child: const Text(
+                    'Continue',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
               )
             ],
           ),

@@ -102,10 +102,10 @@ class CreatePostsUsecase extends StateNotifier<CreatePostsState> {
             just: (data) async {
               Result<dynamic> createPostResponse =
                   await _postsRepository.createUserPost(
-                userId: data.value.uid,
+                userId: data.value.id,
                 data: state.createPostForm.copyWith(
                   userId: state.createPostForm.userId.copyWith(
-                    field: Just(data.value.uid),
+                    field: Just(data.value.id),
                   ),
                   createdAt: state.createPostForm.createdAt.copyWith(
                     field: Just(Timestamp.fromDate(DateTime.now())),

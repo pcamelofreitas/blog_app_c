@@ -51,7 +51,7 @@ class _SignUpNameScreen extends ConsumerState<SignUpNameScreen> {
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(
                 height: SpacingTokens.mega,
@@ -61,8 +61,8 @@ class _SignUpNameScreen extends ConsumerState<SignUpNameScreen> {
                   children: [
                     TextSpan(
                       text: "Enter your ",
-                      style: CapybaSocialTextStyle.headline7.style
-                          .copyWith(color: ColorTokens.neutralDark),
+                      style: CapybaSocialTextStyle.headline6.style
+                          .copyWith(color: ColorTokens.neutralMediumLight),
                     ),
                     TextSpan(
                       text: "Name:",

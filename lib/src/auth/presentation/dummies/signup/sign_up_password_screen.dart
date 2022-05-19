@@ -63,7 +63,7 @@ class _SignUpPasswordScreen extends ConsumerState<SignUpPasswordScreen> {
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(
                 height: SpacingTokens.mega,
@@ -73,12 +73,12 @@ class _SignUpPasswordScreen extends ConsumerState<SignUpPasswordScreen> {
                   children: [
                     TextSpan(
                       text: "Enter your ",
-                      style: CapybaSocialTextStyle.bodyText1.style
-                          .copyWith(color: ColorTokens.neutralMediumDark),
+                      style: CapybaSocialTextStyle.headline6.style
+                          .copyWith(color: ColorTokens.neutralMediumLight),
                     ),
                     TextSpan(
                       text: "Password:",
-                      style: CapybaSocialTextStyle.bodyText1.weightBold.style
+                      style: CapybaSocialTextStyle.headline6.weightBold.style
                           .copyWith(
                         color: ColorTokens.neutralDarkest,
                       ),
@@ -115,8 +115,14 @@ class _SignUpPasswordScreen extends ConsumerState<SignUpPasswordScreen> {
               const SizedBox(
                 height: SpacingTokens.mega,
               ),
-              ElevatedButton(
-                  onPressed: _onContinuePressed, child: Text('Continue')),
+              Center(
+                child: ElevatedButton(
+                    onPressed: _onContinuePressed,
+                    child: Text(
+                      'Continue',
+                      style: CapybaSocialTextStyle.headline6.weightBold.style,
+                    )),
+              ),
               const SizedBox(
                 height: SpacingTokens.mega,
               ),

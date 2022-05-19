@@ -58,7 +58,7 @@ class _SignUpConfirmationPasswordScreen
             horizontal: SpacingTokens.giga,
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(
@@ -69,18 +69,21 @@ class _SignUpConfirmationPasswordScreen
                   children: [
                     TextSpan(
                       text: "Confirm your ",
-                      style: CapybaSocialTextStyle.bodyText1.style
-                          .copyWith(color: ColorTokens.neutralMediumDark),
+                      style: CapybaSocialTextStyle.headline6.style
+                          .copyWith(color: ColorTokens.neutralMediumLight),
                     ),
                     TextSpan(
                       text: "Password:",
-                      style: CapybaSocialTextStyle.bodyText1.weightBold.style
+                      style: CapybaSocialTextStyle.headline6.weightBold.style
                           .copyWith(
                         color: ColorTokens.neutralDarkest,
                       ),
                     )
                   ],
                 ),
+              ),
+              const SizedBox(
+                height: SpacingTokens.mega,
               ),
               Container(
                 decoration: BoxDecoration(
@@ -105,11 +108,16 @@ class _SignUpConfirmationPasswordScreen
                   ),
                 ),
               ),
-              const Spacer(),
+              const SizedBox(
+                height: SpacingTokens.mega,
+              ),
               Center(
                 child: ElevatedButton(
                     onPressed: () => _onContinuePressed(state: state),
-                    child: const Text('Continue')),
+                    child: Text(
+                      'Continue',
+                      style: CapybaSocialTextStyle.headline6.weightBold.style,
+                    )),
               ),
               const SizedBox(
                 height: SpacingTokens.mega,

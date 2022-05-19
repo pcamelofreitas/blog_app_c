@@ -18,7 +18,7 @@ class SignUpUsecase extends StateNotifier<SignUpState> {
         super(SignUpState.initial());
 
   final AuthRepository _authRepository;
-
+//NAME SCREEN-------------------------------------------------------------------
   void onNameChanged(String value) {
     state = state.copyWith(
       signUpForm: state.signUpForm.copyWith(
@@ -35,11 +35,14 @@ class SignUpUsecase extends StateNotifier<SignUpState> {
     Result<String> nameValidation = state.signUpForm.nameValidation;
 
     nameValidation.handle(
-      onSuccess: (data) => state = state.copyWith(flow: const Email()),
+      onSuccess: (data) => state = state.copyWith(
+        flow: const Email(),
+      ),
       onFailure: (error) => {},
     );
   }
 
+//EMAIL SCREEN-------------------------------------------------------------------
   void onEmailChanged(String value) {
     state = state.copyWith(
       signUpForm: state.signUpForm.copyWith(
@@ -61,10 +64,13 @@ class SignUpUsecase extends StateNotifier<SignUpState> {
     state = state.copyWith(flow: const Name());
   }
 
+//PASSWORD SCREEN-------------------------------------------------------------------
   void onPasswordChanged(String value) {
     state = state.copyWith(
       signUpForm: state.signUpForm.copyWith(
-        password: state.signUpForm.password.copyWith(field: Just(value)),
+        password: state.signUpForm.password.copyWith(
+          field: Just(value),
+        ),
       ),
     );
   }
@@ -73,16 +79,20 @@ class SignUpUsecase extends StateNotifier<SignUpState> {
     Result<String> passwordValidation = state.signUpForm.passwordValidation;
 
     passwordValidation.handle(
-      onSuccess: (data) =>
-          state = state.copyWith(flow: const ConfirmationPassword()),
+      onSuccess: (data) => state = state.copyWith(
+        flow: const ConfirmationPassword(),
+      ),
       onFailure: (error) => {},
     );
   }
 
   void onBackFromPasswordScreenPressed() {
-    state = state.copyWith(flow: const Email());
+    state = state.copyWith(
+      flow: const Email(),
+    );
   }
 
+//CONFIRMATION PASSWORD SCREEN-------------------------------------------------------------------
   void onConfirmationPasswordChanged(String value) {
     state = state.copyWith(
       signUpForm: state.signUpForm.copyWith(
@@ -106,6 +116,7 @@ class SignUpUsecase extends StateNotifier<SignUpState> {
     state = state.copyWith(flow: const Password());
   }
 
+//SELFIE SCREEN-------------------------------------------------------------------
   void onSelfieChanged(String value) {
     state = state.copyWith(
       signUpForm: state.signUpForm.copyWith(
@@ -122,6 +133,7 @@ class SignUpUsecase extends StateNotifier<SignUpState> {
       preferredCameraDevice: CameraDevice.front,
     );
     String pathFile = pickedFile!.path;
+    // onSelfieChanged(pathFile);
     state = state.copyWith(
       signUpForm: state.signUpForm.copyWith(
         selfie: state.signUpForm.selfie.copyWith(
@@ -162,6 +174,8 @@ class SignUpUsecase extends StateNotifier<SignUpState> {
       },
     );
   }
+
+//EXCEPTION-------------------------------------------------------------------
 
   void onBackFromCameraScreenPressed() {
     state = state.copyWith(

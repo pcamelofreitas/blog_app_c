@@ -131,9 +131,10 @@ class _SignUpSelfieScreen extends ConsumerState<SignUpSelfieScreen> {
                 child: ElevatedButton(
                     onPressed:
                         _selfieImage.isNotEmpty ? _onContinuePressed : null,
-                    child: const Text(
+                    child: Text(
                       'Continue',
-                      style: TextStyle(color: Colors.white),
+                      style: CapybaSocialTextStyle.headline5.weightBold.style
+                          .copyWith(color: ColorTokens.neutralMediumDark),
                     )),
               ),
               const Spacer(),

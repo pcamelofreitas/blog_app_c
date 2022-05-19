@@ -17,6 +17,7 @@ void setupAuthDI() {
       firebaseAuth: di(),
       firebaseStorage: di(),
       googleSignIn: di(),
+      firebaseFirestore: di(),
     ),
   );
 }

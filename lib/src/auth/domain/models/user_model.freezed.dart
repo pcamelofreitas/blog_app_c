@@ -16,11 +16,13 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$UserModel {
-  String get uid => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get email => throw _privateConstructorUsedError;
+  Maybe<String> get bio => throw _privateConstructorUsedError;
   Maybe<File> get profilePicture => throw _privateConstructorUsedError;
+  String get email => throw _privateConstructorUsedError;
   bool get emailVerified => throw _privateConstructorUsedError;
+  ProviderId get providerId => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserModelCopyWith<UserModel> get copyWith =>
@@ -32,13 +34,17 @@ abstract class $UserModelCopyWith<$Res> {
   factory $UserModelCopyWith(UserModel value, $Res Function(UserModel) then) =
       _$UserModelCopyWithImpl<$Res>;
   $Res call(
-      {String uid,
+      {String id,
       String name,
-      String email,
+      Maybe<String> bio,
       Maybe<File> profilePicture,
-      bool emailVerified});
+      String email,
+      bool emailVerified,
+      ProviderId providerId});
 
+  $MaybeCopyWith<String, $Res> get bio;
   $MaybeCopyWith<File, $Res> get profilePicture;
+  $ProviderIdCopyWith<$Res> get providerId;
 }
 
 /// @nodoc
@@ -51,40 +57,64 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? uid = freezed,
+    Object? id = freezed,
     Object? name = freezed,
-    Object? email = freezed,
+    Object? bio = freezed,
     Object? profilePicture = freezed,
+    Object? email = freezed,
     Object? emailVerified = freezed,
+    Object? providerId = freezed,
   }) {
     return _then(_value.copyWith(
-      uid: uid == freezed
-          ? _value.uid
-          : uid // ignore: cast_nullable_to_non_nullable
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      email: email == freezed
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
+      bio: bio == freezed
+          ? _value.bio
+          : bio // ignore: cast_nullable_to_non_nullable
+              as Maybe<String>,
       profilePicture: profilePicture == freezed
           ? _value.profilePicture
           : profilePicture // ignore: cast_nullable_to_non_nullable
               as Maybe<File>,
+      email: email == freezed
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
       emailVerified: emailVerified == freezed
           ? _value.emailVerified
           : emailVerified // ignore: cast_nullable_to_non_nullable
               as bool,
+      providerId: providerId == freezed
+          ? _value.providerId
+          : providerId // ignore: cast_nullable_to_non_nullable
+              as ProviderId,
     ));
+  }
+
+  @override
+  $MaybeCopyWith<String, $Res> get bio {
+    return $MaybeCopyWith<String, $Res>(_value.bio, (value) {
+      return _then(_value.copyWith(bio: value));
+    });
   }
 
   @override
   $MaybeCopyWith<File, $Res> get profilePicture {
     return $MaybeCopyWith<File, $Res>(_value.profilePicture, (value) {
       return _then(_value.copyWith(profilePicture: value));
+    });
+  }
+
+  @override
+  $ProviderIdCopyWith<$Res> get providerId {
+    return $ProviderIdCopyWith<$Res>(_value.providerId, (value) {
+      return _then(_value.copyWith(providerId: value));
     });
   }
 }
@@ -96,14 +126,20 @@ abstract class _$$_UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
       __$$_UserModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String uid,
+      {String id,
       String name,
-      String email,
+      Maybe<String> bio,
       Maybe<File> profilePicture,
-      bool emailVerified});
+      String email,
+      bool emailVerified,
+      ProviderId providerId});
 
   @override
+  $MaybeCopyWith<String, $Res> get bio;
+  @override
   $MaybeCopyWith<File, $Res> get profilePicture;
+  @override
+  $ProviderIdCopyWith<$Res> get providerId;
 }
 
 /// @nodoc
@@ -118,33 +154,43 @@ class __$$_UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? uid = freezed,
+    Object? id = freezed,
     Object? name = freezed,
-    Object? email = freezed,
+    Object? bio = freezed,
     Object? profilePicture = freezed,
+    Object? email = freezed,
     Object? emailVerified = freezed,
+    Object? providerId = freezed,
   }) {
     return _then(_$_UserModel(
-      uid: uid == freezed
-          ? _value.uid
-          : uid // ignore: cast_nullable_to_non_nullable
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      email: email == freezed
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
+      bio: bio == freezed
+          ? _value.bio
+          : bio // ignore: cast_nullable_to_non_nullable
+              as Maybe<String>,
       profilePicture: profilePicture == freezed
           ? _value.profilePicture
           : profilePicture // ignore: cast_nullable_to_non_nullable
               as Maybe<File>,
+      email: email == freezed
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
       emailVerified: emailVerified == freezed
           ? _value.emailVerified
           : emailVerified // ignore: cast_nullable_to_non_nullable
               as bool,
+      providerId: providerId == freezed
+          ? _value.providerId
+          : providerId // ignore: cast_nullable_to_non_nullable
+              as ProviderId,
     ));
   }
 }
@@ -153,26 +199,32 @@ class __$$_UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
 
 class _$_UserModel implements _UserModel {
   const _$_UserModel(
-      {required this.uid,
+      {required this.id,
       required this.name,
-      required this.email,
+      required this.bio,
       required this.profilePicture,
-      required this.emailVerified});
+      required this.email,
+      required this.emailVerified,
+      required this.providerId});
 
   @override
-  final String uid;
+  final String id;
   @override
   final String name;
   @override
-  final String email;
+  final Maybe<String> bio;
   @override
   final Maybe<File> profilePicture;
   @override
+  final String email;
+  @override
   final bool emailVerified;
+  @override
+  final ProviderId providerId;
 
   @override
   String toString() {
-    return 'UserModel(uid: $uid, name: $name, email: $email, profilePicture: $profilePicture, emailVerified: $emailVerified)';
+    return 'UserModel(id: $id, name: $name, bio: $bio, profilePicture: $profilePicture, email: $email, emailVerified: $emailVerified, providerId: $providerId)';
   }
 
   @override
@@ -180,23 +232,28 @@ class _$_UserModel implements _UserModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_UserModel &&
-            const DeepCollectionEquality().equals(other.uid, uid) &&
+            const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.email, email) &&
+            const DeepCollectionEquality().equals(other.bio, bio) &&
             const DeepCollectionEquality()
                 .equals(other.profilePicture, profilePicture) &&
+            const DeepCollectionEquality().equals(other.email, email) &&
             const DeepCollectionEquality()
-                .equals(other.emailVerified, emailVerified));
+                .equals(other.emailVerified, emailVerified) &&
+            const DeepCollectionEquality()
+                .equals(other.providerId, providerId));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(uid),
+      const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(email),
+      const DeepCollectionEquality().hash(bio),
       const DeepCollectionEquality().hash(profilePicture),
-      const DeepCollectionEquality().hash(emailVerified));
+      const DeepCollectionEquality().hash(email),
+      const DeepCollectionEquality().hash(emailVerified),
+      const DeepCollectionEquality().hash(providerId));
 
   @JsonKey(ignore: true)
   @override
@@ -206,22 +263,28 @@ class _$_UserModel implements _UserModel {
 
 abstract class _UserModel implements UserModel {
   const factory _UserModel(
-      {required final String uid,
+      {required final String id,
       required final String name,
-      required final String email,
+      required final Maybe<String> bio,
       required final Maybe<File> profilePicture,
-      required final bool emailVerified}) = _$_UserModel;
+      required final String email,
+      required final bool emailVerified,
+      required final ProviderId providerId}) = _$_UserModel;
 
   @override
-  String get uid => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   @override
   String get name => throw _privateConstructorUsedError;
   @override
-  String get email => throw _privateConstructorUsedError;
+  Maybe<String> get bio => throw _privateConstructorUsedError;
   @override
   Maybe<File> get profilePicture => throw _privateConstructorUsedError;
   @override
+  String get email => throw _privateConstructorUsedError;
+  @override
   bool get emailVerified => throw _privateConstructorUsedError;
+  @override
+  ProviderId get providerId => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_UserModelCopyWith<_$_UserModel> get copyWith =>
