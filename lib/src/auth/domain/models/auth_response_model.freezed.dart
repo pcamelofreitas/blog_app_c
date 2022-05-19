@@ -17,9 +17,6 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$AuthResponseModel {
   String get uid => throw _privateConstructorUsedError;
-  String get email => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
-  String get photoURL => throw _privateConstructorUsedError;
   bool get emailVerified => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -32,12 +29,7 @@ abstract class $AuthResponseModelCopyWith<$Res> {
   factory $AuthResponseModelCopyWith(
           AuthResponseModel value, $Res Function(AuthResponseModel) then) =
       _$AuthResponseModelCopyWithImpl<$Res>;
-  $Res call(
-      {String uid,
-      String email,
-      String name,
-      String photoURL,
-      bool emailVerified});
+  $Res call({String uid, bool emailVerified});
 }
 
 /// @nodoc
@@ -52,27 +44,12 @@ class _$AuthResponseModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? uid = freezed,
-    Object? email = freezed,
-    Object? name = freezed,
-    Object? photoURL = freezed,
     Object? emailVerified = freezed,
   }) {
     return _then(_value.copyWith(
       uid: uid == freezed
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: email == freezed
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      photoURL: photoURL == freezed
-          ? _value.photoURL
-          : photoURL // ignore: cast_nullable_to_non_nullable
               as String,
       emailVerified: emailVerified == freezed
           ? _value.emailVerified
@@ -89,12 +66,7 @@ abstract class _$$_AuthResponseModelCopyWith<$Res>
           $Res Function(_$_AuthResponseModel) then) =
       __$$_AuthResponseModelCopyWithImpl<$Res>;
   @override
-  $Res call(
-      {String uid,
-      String email,
-      String name,
-      String photoURL,
-      bool emailVerified});
+  $Res call({String uid, bool emailVerified});
 }
 
 /// @nodoc
@@ -111,27 +83,12 @@ class __$$_AuthResponseModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? uid = freezed,
-    Object? email = freezed,
-    Object? name = freezed,
-    Object? photoURL = freezed,
     Object? emailVerified = freezed,
   }) {
     return _then(_$_AuthResponseModel(
       uid: uid == freezed
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: email == freezed
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      photoURL: photoURL == freezed
-          ? _value.photoURL
-          : photoURL // ignore: cast_nullable_to_non_nullable
               as String,
       emailVerified: emailVerified == freezed
           ? _value.emailVerified
@@ -144,27 +101,16 @@ class __$$_AuthResponseModelCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_AuthResponseModel implements _AuthResponseModel {
-  const _$_AuthResponseModel(
-      {required this.uid,
-      required this.email,
-      required this.name,
-      required this.photoURL,
-      required this.emailVerified});
+  const _$_AuthResponseModel({required this.uid, required this.emailVerified});
 
   @override
   final String uid;
-  @override
-  final String email;
-  @override
-  final String name;
-  @override
-  final String photoURL;
   @override
   final bool emailVerified;
 
   @override
   String toString() {
-    return 'AuthResponseModel(uid: $uid, email: $email, name: $name, photoURL: $photoURL, emailVerified: $emailVerified)';
+    return 'AuthResponseModel(uid: $uid, emailVerified: $emailVerified)';
   }
 
   @override
@@ -173,9 +119,6 @@ class _$_AuthResponseModel implements _AuthResponseModel {
         (other.runtimeType == runtimeType &&
             other is _$_AuthResponseModel &&
             const DeepCollectionEquality().equals(other.uid, uid) &&
-            const DeepCollectionEquality().equals(other.email, email) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.photoURL, photoURL) &&
             const DeepCollectionEquality()
                 .equals(other.emailVerified, emailVerified));
   }
@@ -184,9 +127,6 @@ class _$_AuthResponseModel implements _AuthResponseModel {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(uid),
-      const DeepCollectionEquality().hash(email),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(photoURL),
       const DeepCollectionEquality().hash(emailVerified));
 
   @JsonKey(ignore: true)
@@ -199,19 +139,10 @@ class _$_AuthResponseModel implements _AuthResponseModel {
 abstract class _AuthResponseModel implements AuthResponseModel {
   const factory _AuthResponseModel(
       {required final String uid,
-      required final String email,
-      required final String name,
-      required final String photoURL,
       required final bool emailVerified}) = _$_AuthResponseModel;
 
   @override
   String get uid => throw _privateConstructorUsedError;
-  @override
-  String get email => throw _privateConstructorUsedError;
-  @override
-  String get name => throw _privateConstructorUsedError;
-  @override
-  String get photoURL => throw _privateConstructorUsedError;
   @override
   bool get emailVerified => throw _privateConstructorUsedError;
   @override

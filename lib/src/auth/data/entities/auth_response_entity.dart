@@ -10,18 +10,12 @@ class AuthResponseEntity with _$AuthResponseEntity {
   const factory AuthResponseEntity({
     String? uid,
     bool? emailVerified,
-    String? name,
-    String? email,
-    String? photoURL,
   }) = _AuthResponseEntity;
 
   AuthResponseModel toDomain() {
     try {
       return AuthResponseModel(
         uid: uid!,
-        email: email!,
-        name: name!,
-        photoURL: photoURL!,
         emailVerified: emailVerified!,
       );
     } catch (e) {

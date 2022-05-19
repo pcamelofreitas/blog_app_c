@@ -106,7 +106,7 @@ class __FeedScreenSelectorState extends ConsumerState<_FeedScreenSelector>
               controller: _feedTabController,
               physics: feedState.userData.map(
                 nothing: (_) => const NeverScrollableScrollPhysics(),
-                just: (data) => data.value.isVerify
+                just: (data) => data.value.emailVerified
                     ? const BouncingScrollPhysics()
                     : const NeverScrollableScrollPhysics(),
               ),

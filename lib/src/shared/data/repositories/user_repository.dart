@@ -55,14 +55,28 @@ class UserRepository {
       Result<User> loggedUserRes = await _getLoggedUser();
 
       return loggedUserRes.handle(
-        onSuccess: (data) async {
-          final Result<UserEntity> userEntityRes =
-              await _getUserInformation(data);
-
-          return userEntityRes.handle(
-            onSuccess: (entity) => Success(entity.toDomain()),
-            onFailure: (error) => Failure(error),
+        onSuccess: (user) async {
+          UserEntity entity = UserEntity(
+            uid: user.uid,
+            email: user.email,
+            name: user.displayName,
+            photoURL: user.photoURL,
+            emailVerified: user.emailVerified,
           );
+
+          final model = entity.toDomain();
+
+          return Success(model);
+
+          // final Result<UserEntity> userEntityRes =
+          //     await _getUserInformation(user);
+
+          // return userEntityRes.handle(
+          //   onSuccess: (entity) => Success(
+          //     entity.toDomain(),
+          //   ),
+          //   onFailure: (error) => Failure(error),
+          // );
         },
         onFailure: (error) {
           return Failure(error);
@@ -153,7 +167,7 @@ class UserRepository {
   Future<Result<UserEntity>> _getUserInformation(User user) async {
     try {
       final UserEntity userEntity = UserEntity(
-        id: user.uid,
+        uid: user.uid,
         email: user.email,
         emailVerified: user.emailVerified,
         name: user.displayName,

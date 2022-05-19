@@ -99,7 +99,7 @@ class RootScreen extends ConsumerWidget {
                   child: UserAvatar(
                     radius: SpacingTokens.mega,
                     urlUserAvatarImage: rootState.userRequestStatus.maybeWhen(
-                      succeeded: (data) => data.profilePictureUrl.value,
+                      succeeded: (data) => data.photoURL,
                       orElse: () => '',
                     ),
                   ),
@@ -110,7 +110,7 @@ class RootScreen extends ConsumerWidget {
                     radius: SpacingTokens.mega,
                     borderColor: ColorTokens.primary,
                     urlUserAvatarImage: rootState.userRequestStatus.maybeWhen(
-                      succeeded: (data) => data.profilePictureUrl.value,
+                      succeeded: (data) => data.photoURL,
                       orElse: () => '',
                     ),
                   ),

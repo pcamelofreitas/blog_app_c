@@ -34,19 +34,16 @@ class _SignUpNameScreen extends ConsumerState<SignUpNameScreen> {
   Widget build(BuildContext context) {
     final SignUpUsecase usecase =
         ref.read(AuthProviders.signUpUsecaseProvider.notifier);
-    final CapybaSocialAppBar appBar = CapybaSocialAppBar();
+    final CapybaSocialAppBar appBar = CapybaSocialAppBar(
+        title: "Create account",
+        leadingIcon: IconButton(
+          onPressed: () => usecase.onBackFromNameScreenPressed(),
+          icon: const Icon(Icons.arrow_back),
+        ),
+        backgroundColor: Colors.black);
     return Scaffold(
       backgroundColor: Colors.green,
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: const Text(
-          'Create account',
-          style: TextStyle(color: Colors.white70),
-        ),
-        leading: IconButton(
-            onPressed: usecase.onBackFromNameScreenPressed,
-            icon: const Icon(Icons.arrow_back)),
-      ),
+      appBar: appBar.widget,
       body: FlexibleScrollContainer(
         child: Padding(
           padding: const EdgeInsets.symmetric(

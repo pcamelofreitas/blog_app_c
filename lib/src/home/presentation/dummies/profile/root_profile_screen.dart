@@ -50,7 +50,7 @@ class RootProfileScreen extends ConsumerWidget {
                       UserAvatar(
                         urlUserAvatarImage: profileState.userData.map(
                           nothing: (_) => '',
-                          just: (data) => data.value.profilePictureUrl.value,
+                          just: (data) => data.value.photoURL,
                         ),
                       ),
                       const SizedBox(

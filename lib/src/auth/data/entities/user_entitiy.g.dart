@@ -8,7 +8,7 @@ part of 'user_entitiy.dart';
 
 _$_UserEntity _$$_UserEntityFromJson(Map<String, dynamic> json) =>
     _$_UserEntity(
-      id: json['id'] as String?,
+      uid: json['uid'] as String?,
       name: json['name'] as String?,
       email: json['email'] as String?,
       emailVerified: json['emailVerified'] as bool?,
@@ -17,7 +17,7 @@ _$_UserEntity _$$_UserEntityFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_UserEntityToJson(_$_UserEntity instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'uid': instance.uid,
       'name': instance.name,
       'email': instance.email,
       'emailVerified': instance.emailVerified,

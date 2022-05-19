@@ -9,7 +9,6 @@ import 'package:blog_app/src/shared/errors/exceptions.dart';
 import 'package:blog_app/src/shared/types/result.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthRepository {
@@ -27,6 +26,7 @@ class AuthRepository {
 
   Future<Result> evaluateAuthState() async {
     User? loggedUser = _firebaseAuth.currentUser;
+
     if (loggedUser != null) {
       return const Success(true);
     } else {
@@ -59,15 +59,11 @@ class AuthRepository {
               email: form.email.field.getOrElse(''),
               password: form.password.field.getOrElse(''));
 
-      User? user = userCredential.user;
-
       AuthResponseEntity authResponseEntity = AuthResponseEntity(
-        uid: user?.uid,
-        email: user?.email,
-        photoURL: user?.photoURL,
-        name: user?.displayName,
-        emailVerified: user?.emailVerified,
+        uid: userCredential.user?.uid,
+        emailVerified: userCredential.user?.emailVerified,
       );
+
       return Success(authResponseEntity.toDomain());
     } on ParseException catch (e) {
       return Failure(EntityNotFitError(slug: e.toString()));
@@ -93,14 +89,9 @@ class AuthRepository {
         final UserCredential userCredential =
             await _firebaseAuth.signInWithCredential(credential);
 
-        final User? user = userCredential.user;
-
         AuthResponseEntity authResponseEntity = AuthResponseEntity(
-          uid: user?.uid,
-          email: user?.email,
-          photoURL: user?.photoURL,
-          name: user?.displayName,
-          emailVerified: user?.emailVerified,
+          uid: userCredential.user?.uid,
+          emailVerified: userCredential.user?.emailVerified,
         );
         return Success(authResponseEntity.toDomain());
       } catch (e) {
@@ -130,11 +121,15 @@ class AuthRepository {
       Result updateProfileRes = await uploadPhotoRes.handle(
         onSuccess: (url) async {
           try {
-            await _updateUserData(
-              credential: credential,
-              url: url,
-              displayName: form.name.field.getOrElse(''),
-            );
+            // await _updateUserData(
+            //   credential: credential,
+            //   url: url,
+            //   displayName: form.name.field.getOrElse(''),
+            // );
+            await credential.user!.updateDisplayName(form.name.field.value);
+
+            await credential.user!.updatePhotoURL(url);
+
             return const Success(true);
           } catch (e) {
             return Failure(AppUnknownError(slug: e.toString()));
@@ -145,13 +140,10 @@ class AuthRepository {
         },
       );
 
-      if (updateProfileRes is Success) {
+      if (updateProfileRes is Success && uploadPhotoRes is Success) {
         AuthResponseEntity authResponseEntity = AuthResponseEntity(
           uid: credential.user!.uid,
-          email: credential.user!.email,
           emailVerified: credential.user!.emailVerified,
-          name: credential.user!.displayName,
-          photoURL: credential.user!.photoURL,
         );
 
         return Success(authResponseEntity.toDomain());
@@ -163,8 +155,6 @@ class AuthRepository {
     }
   }
 
-  // Future<Result> _updateProfile() {}
-
   Future<Result> _updateUserData({
     required UserCredential credential,
     required String url,
@@ -173,6 +163,7 @@ class AuthRepository {
     try {
       await credential.user!.updatePhotoURL(url);
       await credential.user!.updateDisplayName(displayName);
+
       return const Success(true);
     } catch (e) {
       return Failure(AppUnknownError(slug: e.toString()));

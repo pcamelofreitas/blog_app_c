@@ -20,7 +20,7 @@ UserEntity _$UserEntityFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UserEntity {
-  String? get id => throw _privateConstructorUsedError;
+  String? get uid => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
   bool? get emailVerified => throw _privateConstructorUsedError;
@@ -38,7 +38,7 @@ abstract class $UserEntityCopyWith<$Res> {
           UserEntity value, $Res Function(UserEntity) then) =
       _$UserEntityCopyWithImpl<$Res>;
   $Res call(
-      {String? id,
+      {String? uid,
       String? name,
       String? email,
       bool? emailVerified,
@@ -55,16 +55,16 @@ class _$UserEntityCopyWithImpl<$Res> implements $UserEntityCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? id = freezed,
+    Object? uid = freezed,
     Object? name = freezed,
     Object? email = freezed,
     Object? emailVerified = freezed,
     Object? photoURL = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      uid: uid == freezed
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
               as String?,
       name: name == freezed
           ? _value.name
@@ -94,7 +94,7 @@ abstract class _$$_UserEntityCopyWith<$Res>
       __$$_UserEntityCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String? id,
+      {String? uid,
       String? name,
       String? email,
       bool? emailVerified,
@@ -113,16 +113,16 @@ class __$$_UserEntityCopyWithImpl<$Res> extends _$UserEntityCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? id = freezed,
+    Object? uid = freezed,
     Object? name = freezed,
     Object? email = freezed,
     Object? emailVerified = freezed,
     Object? photoURL = freezed,
   }) {
     return _then(_$_UserEntity(
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      uid: uid == freezed
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
               as String?,
       name: name == freezed
           ? _value.name
@@ -148,14 +148,14 @@ class __$$_UserEntityCopyWithImpl<$Res> extends _$UserEntityCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_UserEntity extends _UserEntity {
   const _$_UserEntity(
-      {this.id, this.name, this.email, this.emailVerified, this.photoURL})
+      {this.uid, this.name, this.email, this.emailVerified, this.photoURL})
       : super._();
 
   factory _$_UserEntity.fromJson(Map<String, dynamic> json) =>
       _$$_UserEntityFromJson(json);
 
   @override
-  final String? id;
+  final String? uid;
   @override
   final String? name;
   @override
@@ -167,7 +167,7 @@ class _$_UserEntity extends _UserEntity {
 
   @override
   String toString() {
-    return 'UserEntity(id: $id, name: $name, email: $email, emailVerified: $emailVerified, photoURL: $photoURL)';
+    return 'UserEntity(uid: $uid, name: $name, email: $email, emailVerified: $emailVerified, photoURL: $photoURL)';
   }
 
   @override
@@ -175,7 +175,7 @@ class _$_UserEntity extends _UserEntity {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_UserEntity &&
-            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.uid, uid) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.email, email) &&
             const DeepCollectionEquality()
@@ -187,7 +187,7 @@ class _$_UserEntity extends _UserEntity {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(uid),
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(email),
       const DeepCollectionEquality().hash(emailVerified),
@@ -206,7 +206,7 @@ class _$_UserEntity extends _UserEntity {
 
 abstract class _UserEntity extends UserEntity {
   const factory _UserEntity(
-      {final String? id,
+      {final String? uid,
       final String? name,
       final String? email,
       final bool? emailVerified,
@@ -217,7 +217,7 @@ abstract class _UserEntity extends UserEntity {
       _$_UserEntity.fromJson;
 
   @override
-  String? get id => throw _privateConstructorUsedError;
+  String? get uid => throw _privateConstructorUsedError;
   @override
   String? get name => throw _privateConstructorUsedError;
   @override

@@ -34,7 +34,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
 
     _image = state.userData.map(
       nothing: (_) => '',
-      just: (data) => data.value.profilePictureUrl.value ?? '',
+      just: (data) => data.value.photoURL,
     );
 
     nameController = CapybaSocialTextFieldController(

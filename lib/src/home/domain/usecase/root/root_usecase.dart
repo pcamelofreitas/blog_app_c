@@ -98,7 +98,7 @@ class RootUsecase extends StateNotifier<RootState> {
     return state.userRequestStatus.maybeWhen(
       succeeded: (data) {
         state = state.copyWith(
-          userNotVerifiedRequestStatus: data.isVerify
+          userNotVerifiedRequestStatus: data.emailVerified
               ? const Succeeded('')
               : Failed(
                   AppUnknownError(
@@ -111,7 +111,7 @@ class RootUsecase extends StateNotifier<RootState> {
           userNotVerifiedRequestStatus: const Idle(),
         );
 
-        return data.isVerify;
+        return data.emailVerified;
       },
       orElse: () => false,
     );

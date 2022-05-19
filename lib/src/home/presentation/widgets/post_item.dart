@@ -32,10 +32,7 @@ class PostItem extends StatelessWidget {
                   radius: 30.0,
                   urlUserAvatarImage: post.user.when(
                     nothing: () => "",
-                    just: (user) => user.profilePictureUrl.when(
-                      nothing: () => "",
-                      just: (value) => value,
-                    ),
+                    just: (user) => user.photoURL,
                   ),
                 ),
                 const SizedBox(

@@ -17,7 +17,7 @@ class RestrictedFeedScreen extends ConsumerWidget {
     final FeedState feedState = ref.watch(HomeProviders.feedUsecaseProvider);
 
     return Scaffold(
-      body: (!feedState.userData.value!.isVerify)
+      body: (!feedState.userData.value!.emailVerified)
           ? const DefaultFailedMessage(
               msg: "You need to verify your email, to access this area.",
             )

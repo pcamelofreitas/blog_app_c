@@ -18,9 +18,6 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AuthResponseEntity {
   String? get uid => throw _privateConstructorUsedError;
   bool? get emailVerified => throw _privateConstructorUsedError;
-  String? get name => throw _privateConstructorUsedError;
-  String? get email => throw _privateConstructorUsedError;
-  String? get photoURL => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AuthResponseEntityCopyWith<AuthResponseEntity> get copyWith =>
@@ -32,12 +29,7 @@ abstract class $AuthResponseEntityCopyWith<$Res> {
   factory $AuthResponseEntityCopyWith(
           AuthResponseEntity value, $Res Function(AuthResponseEntity) then) =
       _$AuthResponseEntityCopyWithImpl<$Res>;
-  $Res call(
-      {String? uid,
-      bool? emailVerified,
-      String? name,
-      String? email,
-      String? photoURL});
+  $Res call({String? uid, bool? emailVerified});
 }
 
 /// @nodoc
@@ -53,9 +45,6 @@ class _$AuthResponseEntityCopyWithImpl<$Res>
   $Res call({
     Object? uid = freezed,
     Object? emailVerified = freezed,
-    Object? name = freezed,
-    Object? email = freezed,
-    Object? photoURL = freezed,
   }) {
     return _then(_value.copyWith(
       uid: uid == freezed
@@ -66,18 +55,6 @@ class _$AuthResponseEntityCopyWithImpl<$Res>
           ? _value.emailVerified
           : emailVerified // ignore: cast_nullable_to_non_nullable
               as bool?,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      email: email == freezed
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String?,
-      photoURL: photoURL == freezed
-          ? _value.photoURL
-          : photoURL // ignore: cast_nullable_to_non_nullable
-              as String?,
     ));
   }
 }
@@ -89,12 +66,7 @@ abstract class _$$_AuthResponseEntityCopyWith<$Res>
           $Res Function(_$_AuthResponseEntity) then) =
       __$$_AuthResponseEntityCopyWithImpl<$Res>;
   @override
-  $Res call(
-      {String? uid,
-      bool? emailVerified,
-      String? name,
-      String? email,
-      String? photoURL});
+  $Res call({String? uid, bool? emailVerified});
 }
 
 /// @nodoc
@@ -112,9 +84,6 @@ class __$$_AuthResponseEntityCopyWithImpl<$Res>
   $Res call({
     Object? uid = freezed,
     Object? emailVerified = freezed,
-    Object? name = freezed,
-    Object? email = freezed,
-    Object? photoURL = freezed,
   }) {
     return _then(_$_AuthResponseEntity(
       uid: uid == freezed
@@ -125,18 +94,6 @@ class __$$_AuthResponseEntityCopyWithImpl<$Res>
           ? _value.emailVerified
           : emailVerified // ignore: cast_nullable_to_non_nullable
               as bool?,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      email: email == freezed
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String?,
-      photoURL: photoURL == freezed
-          ? _value.photoURL
-          : photoURL // ignore: cast_nullable_to_non_nullable
-              as String?,
     ));
   }
 }
@@ -144,24 +101,16 @@ class __$$_AuthResponseEntityCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_AuthResponseEntity extends _AuthResponseEntity {
-  const _$_AuthResponseEntity(
-      {this.uid, this.emailVerified, this.name, this.email, this.photoURL})
-      : super._();
+  const _$_AuthResponseEntity({this.uid, this.emailVerified}) : super._();
 
   @override
   final String? uid;
   @override
   final bool? emailVerified;
-  @override
-  final String? name;
-  @override
-  final String? email;
-  @override
-  final String? photoURL;
 
   @override
   String toString() {
-    return 'AuthResponseEntity(uid: $uid, emailVerified: $emailVerified, name: $name, email: $email, photoURL: $photoURL)';
+    return 'AuthResponseEntity(uid: $uid, emailVerified: $emailVerified)';
   }
 
   @override
@@ -171,20 +120,14 @@ class _$_AuthResponseEntity extends _AuthResponseEntity {
             other is _$_AuthResponseEntity &&
             const DeepCollectionEquality().equals(other.uid, uid) &&
             const DeepCollectionEquality()
-                .equals(other.emailVerified, emailVerified) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.email, email) &&
-            const DeepCollectionEquality().equals(other.photoURL, photoURL));
+                .equals(other.emailVerified, emailVerified));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(uid),
-      const DeepCollectionEquality().hash(emailVerified),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(email),
-      const DeepCollectionEquality().hash(photoURL));
+      const DeepCollectionEquality().hash(emailVerified));
 
   @JsonKey(ignore: true)
   @override
@@ -195,23 +138,13 @@ class _$_AuthResponseEntity extends _AuthResponseEntity {
 
 abstract class _AuthResponseEntity extends AuthResponseEntity {
   const factory _AuthResponseEntity(
-      {final String? uid,
-      final bool? emailVerified,
-      final String? name,
-      final String? email,
-      final String? photoURL}) = _$_AuthResponseEntity;
+      {final String? uid, final bool? emailVerified}) = _$_AuthResponseEntity;
   const _AuthResponseEntity._() : super._();
 
   @override
   String? get uid => throw _privateConstructorUsedError;
   @override
   bool? get emailVerified => throw _privateConstructorUsedError;
-  @override
-  String? get name => throw _privateConstructorUsedError;
-  @override
-  String? get email => throw _privateConstructorUsedError;
-  @override
-  String? get photoURL => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_AuthResponseEntityCopyWith<_$_AuthResponseEntity> get copyWith =>

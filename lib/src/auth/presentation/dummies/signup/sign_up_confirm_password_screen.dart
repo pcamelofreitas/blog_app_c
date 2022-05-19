@@ -4,7 +4,6 @@ import 'package:blog_app/src/shared/design_system/tokens/color_tokens.dart';
 import 'package:blog_app/src/shared/design_system/tokens/spacing_tokens.dart';
 import 'package:blog_app/src/shared/presentation/typography/capyba_social_text_style.dart';
 import 'package:blog_app/src/shared/presentation/widgets/appbars/capyba_social_appbar.dart';
-import 'package:blog_app/src/shared/presentation/widgets/buttons/capyba_social_button.dart';
 import 'package:blog_app/src/shared/presentation/widgets/flexible_scroll_container.dart';
 import 'package:blog_app/src/shared/presentation/widgets/text_field/capyba_social_text_field.dart';
 import 'package:blog_app/src/shared/presentation/widgets/text_field/capyba_social_text_field_controller.dart';

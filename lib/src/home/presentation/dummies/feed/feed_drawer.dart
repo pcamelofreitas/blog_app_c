@@ -40,7 +40,7 @@ class FeedDrawerMenu extends ConsumerWidget {
               radius: 35,
               urlUserAvatarImage: feedState.userData.map(
                 nothing: (_) => '',
-                just: (data) => data.value.profilePictureUrl.value,
+                just: (data) => data.value.photoURL,
               ),
             ),
           ),
@@ -52,7 +52,7 @@ class FeedDrawerMenu extends ConsumerWidget {
         ),
         feedState.userData.map(
           nothing: (_) => Container(),
-          just: (data) => !data.value.isVerify
+          just: (data) => !data.value.emailVerified
               ? ListTile(
                   leading: const Icon(Icons.mail),
                   title: Row(

@@ -10,7 +10,6 @@ import '/src/auth/domain/models/user_model.dart';
 import '/src/home/data/entities/post_entity.dart';
 import '/src/home/domain/models/post_model.dart';
 import '/src/shared/errors/app_error.dart';
-import '/src/shared/types/maybe.dart';
 import '/src/shared/types/result.dart';
 import 'package:path_provider/path_provider.dart';
 
