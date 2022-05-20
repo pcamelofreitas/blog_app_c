@@ -86,50 +86,51 @@ class CreatePostsUsecase extends StateNotifier<CreatePostsState> {
     Result<String> titleValidation = state.createPostForm.titleValidation;
 
     titleValidation.map(
-        success: (_) {
-          state = state.copyWith(
-            createPostRequestStatus: const Loading(),
-          );
+      success: (_) {
+        state = state.copyWith(
+          createPostRequestStatus: const Loading(),
+        );
 
-          state.userData.map(
-            nothing: (_) {
-              state = state.copyWith(
-                createPostRequestStatus: Failed(
-                  AppUnknownError(slug: 'could not access user data'),
+        state.userData.map(
+          nothing: (_) {
+            state = state.copyWith(
+              createPostRequestStatus: Failed(
+                AppUnknownError(slug: 'could not access user data'),
+              ),
+            );
+          },
+          just: (data) async {
+            Result<dynamic> createPostResponse =
+                await _postsRepository.createUserPost(
+              userId: data.value.id,
+              data: state.createPostForm.copyWith(
+                userId: state.createPostForm.userId.copyWith(
+                  field: Just(data.value.id),
                 ),
-              );
-            },
-            just: (data) async {
-              Result<dynamic> createPostResponse =
-                  await _postsRepository.createUserPost(
-                userId: data.value.id,
-                data: state.createPostForm.copyWith(
-                  userId: state.createPostForm.userId.copyWith(
-                    field: Just(data.value.id),
-                  ),
-                  createdAt: state.createPostForm.createdAt.copyWith(
-                    field: Just(Timestamp.fromDate(DateTime.now())),
-                  ),
+                createdAt: state.createPostForm.createdAt.copyWith(
+                  field: Just(Timestamp.fromDate(DateTime.now())),
                 ),
-              );
+              ),
+            );
 
-              createPostResponse.handle(
-                onSuccess: (data) {
-                  state = state.copyWith(
-                    action: const PopFlow(),
-                    createPostRequestStatus: Succeeded(data),
-                  );
-                },
-                onFailure: (error) {
-                  state = state.copyWith(
-                    createPostRequestStatus: Failed(error),
-                  );
-                },
-              );
-            },
-          );
-        },
-        failure: (_) {});
+            createPostResponse.handle(
+              onSuccess: (data) {
+                state = state.copyWith(
+                  action: const PopFlow(),
+                  createPostRequestStatus: Succeeded(data),
+                );
+              },
+              onFailure: (error) {
+                state = state.copyWith(
+                  createPostRequestStatus: Failed(error),
+                );
+              },
+            );
+          },
+        );
+      },
+      failure: (_) {},
+    );
   }
 
   void onLeftCreatePostsUsecase() {

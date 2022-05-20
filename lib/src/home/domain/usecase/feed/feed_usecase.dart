@@ -71,6 +71,10 @@ class FeedUsecase extends StateNotifier<FeedState> {
     );
   }
 
+  void onReadPostClick(post) {}
+  void onFavoritePostPressed(post) {}
+  void onSharePostPressed(post) {}
+
   void onClickEditProfile() {
     state = state.copyWith(
       flow: const EditProfile(),

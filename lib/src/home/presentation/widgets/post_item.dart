@@ -112,16 +112,12 @@ class PostItem extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {},
-              child: Text('Read Post'),
+              child: const Text('Read it'),
             ),
             const Spacer(),
             IconButton(
               onPressed: () {},
               icon: const Icon(Icons.favorite),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.share),
             ),
           ],
         ),

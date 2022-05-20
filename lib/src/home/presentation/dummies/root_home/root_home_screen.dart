@@ -1,6 +1,7 @@
 import 'package:blog_app/src/home/domain/usecase/root/root_usecase.dart';
 import 'package:blog_app/src/home/home_providers.dart';
 import 'package:blog_app/src/home/presentation/dummies/feed/feed_drawer.dart';
+import 'package:blog_app/src/shared/design_system/assets/capyba_social_icons.dart';
 
 import '/src/home/presentation/smarties/create_posts_smart_view.dart';
 import '/src/home/presentation/smarties/feed_smart_view.dart';
@@ -42,29 +43,29 @@ class RootScreen extends ConsumerWidget {
         feed: () => const FeedDrawerMenu(),
         orElse: () => null,
       ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      // floatingActionButton: rootState.rootTab.maybeWhen(
-      //   createPost: () => null,
-      //   orElse: () => FloatingActionButton(
-      //     onPressed: () => rootUsecase.onSelectRootTab(2),
-      //     backgroundColor: ColorTokens.neutralDark,
-      //     child:  Container(
-      //       margin: const EdgeInsets.all(
-      //         5,
-      //       ),
-      //       decoration: const BoxDecoration(
-      //         color: ColorTokens.primary,
-      //         shape: BoxShape.circle,
-      //       ),
-      //       alignment: Alignment.center,
-      //       child: const Icon(
-      //         CapybaSocialIcons.add,
-      //         color: ColorTokens.neutralDarkest,
-      //         size: 28.0,
-      //       ),
-      //     ),
-      //   ),
-      // ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: rootState.rootTab.maybeWhen(
+        createPost: () => null,
+        orElse: () => FloatingActionButton(
+          onPressed: () => rootUsecase.onSelectRootTab(2),
+          backgroundColor: ColorTokens.neutralDark,
+          child: Container(
+            margin: const EdgeInsets.all(
+              5,
+            ),
+            decoration: const BoxDecoration(
+              color: ColorTokens.primary,
+              shape: BoxShape.circle,
+            ),
+            alignment: Alignment.center,
+            child: const Icon(Icons.add, color: ColorTokens.neutralDark
+                // CapybaSocialIcons.add,
+                // color: ColorTokens.neutralDarkest,
+                // size: 28.0,
+                ),
+          ),
+        ),
+      ),
       bottomNavigationBar: rootState.rootTab.maybeWhen(
         orElse: () => BottomAppBar(
           shape: const CircularNotchedRectangle(),

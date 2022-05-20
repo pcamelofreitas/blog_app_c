@@ -30,9 +30,10 @@ class EditProfileSmartViewState extends ConsumerState<EditProfileSmartView> {
           orElse: () => const Nothing(),
           succeeded: (userData) => Just(userData),
         );
-    ref.read(HomeProviders.editProfileUsecaseProvider.notifier).init(
-          userData: userData,
-        );
+
+    ref
+        .read(HomeProviders.editProfileUsecaseProvider.notifier)
+        .init(userData: userData);
 
     navKey = GlobalKey<NavigatorState>();
   }

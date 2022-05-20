@@ -23,7 +23,8 @@ class CreatePostsScreen extends ConsumerStatefulWidget {
 }
 
 class _CreatePostsScreenState extends ConsumerState<CreatePostsScreen> {
-  late final CapybaSocialTextFieldController controller;
+  late final CapybaSocialTextFieldController titleController;
+  late final CapybaSocialTextFieldController contentController;
   late String _photo;
 
   @override
@@ -32,7 +33,10 @@ class _CreatePostsScreenState extends ConsumerState<CreatePostsScreen> {
 
     _photo = state.createPostForm.photo.field.getOrElse('');
 
-    controller = CapybaSocialTextFieldController(
+    titleController = CapybaSocialTextFieldController(
+      "",
+    );
+    contentController = CapybaSocialTextFieldController(
       "",
     );
     super.initState();
@@ -41,7 +45,8 @@ class _CreatePostsScreenState extends ConsumerState<CreatePostsScreen> {
   @override
   void dispose() {
     try {
-      controller.dispose();
+      titleController.dispose();
+      contentController.dispose();
     } catch (_) {}
     super.dispose();
   }
@@ -160,7 +165,7 @@ class _CreatePostsScreenState extends ConsumerState<CreatePostsScreen> {
                 CapybaSocialTextField(
                   hintText: "Post title",
                   autofocus: false,
-                  controller: controller,
+                  controller: titleController,
                   keyboardType: TextInputType.multiline,
                   onSubmitted: (_) => _onCreatePressed(),
                   onChanged: (value) => usecase.onTitleChanged(value),
@@ -190,7 +195,7 @@ class _CreatePostsScreenState extends ConsumerState<CreatePostsScreen> {
                 CapybaSocialTextField(
                   hintText: "Post content",
                   autofocus: false,
-                  controller: controller,
+                  controller: contentController,
                   keyboardType: TextInputType.multiline,
                   onSubmitted: (_) => _onCreatePressed(),
                   onChanged: (value) => usecase.onContentChanged(value),
@@ -233,7 +238,7 @@ class _CreatePostsScreenState extends ConsumerState<CreatePostsScreen> {
                 Center(
                   child: ElevatedButton(
                       onPressed: _photo.isNotEmpty ? _onCreatePressed : null,
-                      child: Text('create')),
+                      child: const Text('create post ')),
                 ),
                 const SizedBox(
                   height: SpacingTokens.mega,
