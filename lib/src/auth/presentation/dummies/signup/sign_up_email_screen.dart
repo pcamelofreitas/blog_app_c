@@ -33,6 +33,7 @@ class _SignUpEmailScreen extends ConsumerState<SignUpEmailScreen> {
   Widget build(BuildContext context) {
     final SignUpUsecase usecase =
         ref.read(AuthProviders.signUpUsecaseProvider.notifier);
+
     final CapybaSocialAppBar appBar = CapybaSocialAppBar(
         title: "Create account",
         leadingIcon: IconButton(
@@ -40,6 +41,7 @@ class _SignUpEmailScreen extends ConsumerState<SignUpEmailScreen> {
           icon: const Icon(Icons.arrow_back),
         ),
         backgroundColor: Colors.black);
+
     return Scaffold(
       appBar: appBar.widget,
       backgroundColor: Colors.green,

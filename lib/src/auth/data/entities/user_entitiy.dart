@@ -31,7 +31,7 @@ class UserEntity with _$UserEntity {
         profilePicture: const Nothing(),
         email: email!,
         emailVerified: emailVerified!,
-        providerId: providerId?.contains("google") == true
+        providerId: providerId?.contains("googgle") == true
             ? const Google()
             : const Password(),
       );

@@ -15,20 +15,26 @@ part 'sign_up_usecase.freezed.dart';
 class SignUpUsecase extends StateNotifier<SignUpState> {
   SignUpUsecase({required AuthRepository authRepository})
       : _authRepository = authRepository,
-        super(SignUpState.initial());
+        super(
+          SignUpState.initial(),
+        );
 
   final AuthRepository _authRepository;
 //NAME SCREEN-------------------------------------------------------------------
   void onNameChanged(String value) {
     state = state.copyWith(
       signUpForm: state.signUpForm.copyWith(
-        name: state.signUpForm.name.copyWith(field: Just(value)),
+        name: state.signUpForm.name.copyWith(
+          field: Just(value),
+        ),
       ),
     );
   }
 
   void onBackFromNameScreenPressed() {
-    state = state.copyWith(action: const PopFlow());
+    state = state.copyWith(
+      action: const PopFlow(),
+    );
   }
 
   void onContinueFromNameScreenPressed() {
@@ -46,7 +52,9 @@ class SignUpUsecase extends StateNotifier<SignUpState> {
   void onEmailChanged(String value) {
     state = state.copyWith(
       signUpForm: state.signUpForm.copyWith(
-        email: state.signUpForm.email.copyWith(field: Just(value)),
+        email: state.signUpForm.email.copyWith(
+          field: Just(value),
+        ),
       ),
     );
   }
@@ -169,19 +177,19 @@ class SignUpUsecase extends StateNotifier<SignUpState> {
       onFailure: (error) {
         state = state.copyWith(
           signUpRequestStatus: Failed(error),
-          action: const GoToHome(),
+          action: const PopFlow(),
         );
       },
     );
   }
 
-//EXCEPTION-------------------------------------------------------------------
-
+//CAMERA SCREEN
   void onBackFromCameraScreenPressed() {
     state = state.copyWith(
       flow: const Selfie(),
     );
   }
+//EXCEPTION-------------------------------------------------------------------
 
   void onLeftSignUpUsecase() {
     state = SignUpState.initial();

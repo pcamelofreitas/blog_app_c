@@ -82,13 +82,13 @@ class SignUpSmartViewState extends ConsumerState<SignUpSmartView> {
   }
 
   bool _dealWithPop(SignUpState state, bool internalNavigator) {
-    bool _condition = false;
+    bool condition = false;
 
     if (Platform.isIOS) {
-      _condition =
+      condition =
           internalNavigator && Navigator.of(context).userGestureInProgress;
     } else {
-      _condition = internalNavigator;
+      condition = internalNavigator;
     }
 
     if (state.isLoading) {
@@ -107,35 +107,35 @@ class SignUpSmartViewState extends ConsumerState<SignUpSmartView> {
               .read(AuthProviders.signUpUsecaseProvider.notifier)
               .onBackFromEmailScreenPressed();
 
-          return _condition;
+          return condition;
         },
         password: () {
           ref
               .read(AuthProviders.signUpUsecaseProvider.notifier)
               .onBackFromPasswordScreenPressed();
 
-          return _condition;
+          return condition;
         },
         confirmationPassword: () {
           ref
               .read(AuthProviders.signUpUsecaseProvider.notifier)
               .onBackFromConfirmationPasswordScreenPressed();
 
-          return _condition;
+          return condition;
         },
         selfie: () {
           ref
               .read(AuthProviders.signUpUsecaseProvider.notifier)
               .onBackFromSelfieScreenPressed();
 
-          return _condition;
+          return condition;
         },
         camera: () {
           ref
               .read(AuthProviders.signUpUsecaseProvider.notifier)
               .onBackFromCameraScreenPressed();
 
-          return _condition;
+          return condition;
         },
       );
     }

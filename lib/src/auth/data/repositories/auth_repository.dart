@@ -14,16 +14,17 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthRepository {
-  AuthRepository(
-      {required FirebaseAuth firebaseAuth,
-      required FirebaseStorage firebaseStorage,
-      required GoogleSignIn googleSignIn,
-      required FirebaseFirestore firebaseFirestore})
-      : _firebaseAuth = firebaseAuth,
+  AuthRepository({
+    required FirebaseAuth firebaseAuth,
+    required FirebaseStorage firebaseStorage,
+    required GoogleSignIn googleSignIn,
+    required FirebaseFirestore firebaseFirestore,
+  })  : _firebaseAuth = firebaseAuth,
         _firebaseStorage = firebaseStorage,
         _googleSignIn = googleSignIn,
         _firebaseFirestore = firebaseFirestore,
         super();
+
   final FirebaseAuth _firebaseAuth;
   final FirebaseStorage _firebaseStorage;
   final GoogleSignIn _googleSignIn;
@@ -99,8 +100,9 @@ class AuthRepository {
   }
 
 //----------------SIGN-UP------------------------------------------------
-  Future<Result<AuthResponseModel>> signUpWithEmailAndPassword(
-      {required SignUpForm form}) async {
+  Future<Result<AuthResponseModel>> signUpWithEmailAndPassword({
+    required SignUpForm form,
+  }) async {
     try {
       final UserCredential userCredential =
           await _firebaseAuth.createUserWithEmailAndPassword(
@@ -177,7 +179,7 @@ class AuthRepository {
         await loggedUser.sendEmailVerification();
 
         return const Success(
-            'A verification email has been sent to your registration email.');
+            'A verification email has been sent to your registration email');
       } else {
         return Failure(AppUnknownError());
       }
@@ -194,42 +196,4 @@ class AuthRepository {
       return Failure(AppUnknownError(slug: e.toString()));
     }
   }
-
-  // Future<Result> _updateUserData({
-  //   required UserCredential credential,
-  //   required String url,
-  //   required String displayName,
-  // }) async {
-  //   try {
-  //     await credential.user!.updatePhotoURL(url);
-  //     await credential.user!.updateDisplayName(displayName);
-
-  //     return const Success(true);
-  //   } catch (e) {
-  //     return Failure(AppUnknownError(slug: e.toString()));
-  //   }
-  // }
-
-  // Future<Result<String>> uploadProfilePhoto({
-  //   required File photo,
-  // }) async {
-  //   try {
-  //     User? user = _firebaseAuth.currentUser;
-
-  //     late String photoURL;
-
-  //     Reference firebaseStorageRef =
-  //         _firebaseStorage.ref().child('profile_user_photos/$user.uid');
-
-  //     UploadTask uploadTask = firebaseStorageRef.putFile(photo);
-
-  //     TaskSnapshot taskSnapshot = await uploadTask;
-
-  //     taskSnapshot.ref.getDownloadURL().then((value) => photoURL = value);
-
-  //     return Success(photoURL);
-  //   } catch (e) {
-  //     return Failure(AppUnknownError(msg: e.toString()));
-  //   }
-  // }
 }

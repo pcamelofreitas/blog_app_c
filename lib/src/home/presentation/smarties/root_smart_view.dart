@@ -19,13 +19,13 @@ class RootSmartViewState extends ConsumerState<RootSmartView> {
   @override
   void initState() {
     super.initState();
-    navKey = GlobalKey<NavigatorState>();
 
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
         ref.read(HomeProviders.rootHomeUsecaseProvider.notifier).init();
       },
     );
+    navKey = GlobalKey<NavigatorState>();
   }
 
   @override

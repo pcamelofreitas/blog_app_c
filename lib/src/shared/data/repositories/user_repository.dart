@@ -162,7 +162,7 @@ class UserRepository {
 
       late UserEntity userEntity;
 
-      if (providerId.contains("google")) {
+      if (providerId.contains("googgle")) {
         userEntity = UserEntity(
           id: user.uid,
           email: user.email,
